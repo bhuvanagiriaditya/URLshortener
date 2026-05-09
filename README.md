@@ -23,3 +23,21 @@ A simple and efficient URL Shortener web application that converts long URLs int
 ---
 
 ## 📂 Project Structure
+URLshortener/
+│
+├── backend/
+│ ├── server.js # Main server file
+│ ├── routes/ # API routes (URL shortening, redirect, etc.)
+│ ├── controllers/ # Business logic (optional)
+│ ├── models/ # Database models / schemas
+│ └── config/ # DB connection & configuration
+│
+├── frontend/
+│ ├── index.html # Main UI page
+│ ├── style.css # Styling file
+│ ├── script.js # Frontend logic
+│
+├── package.json # Project dependencies
+├── package-lock.json # Dependency lock file
+│
+└── README.md # Project documentation
