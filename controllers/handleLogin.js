@@ -2,13 +2,13 @@ const login = require('../models/signUp');
 const { findOne } = require('../models/url');
 const handleLogin = async (req, res) => {
     try {
-        const {name,email}=req.body;
+        const {password,email}=req.body;
         await login.create({
             email,
             password,
 
         });
-        const user=await findOne({name,email});
+        const user=await findOne({password,email});
         if(!user) res.render('login');
 
        
