@@ -1,29 +1,31 @@
-const login = require('../models/signUp');
-const { findOne } = require('../models/url');
+const Login = require('../models/signUp');
+const { v4: uuidv4 } = require('uuid');
+
+
 const handleLogin = async (req, res) => {
+    const uuId=uuidv4();
     try {
-        const {password,email}=req.body;
-        await login.create({
-            email,
-            password,
+        const { email, password } = req.body;
 
-        });
-        const user=await findOne({password,email});
-        if(!user) res.render('login');
+        // Find user
+        const user = await Login.findOne({ email, password });
 
-       
-        return  res.status(201).redirect('/app');
-       
+        // If user not found
+        if (!user) {
+            return res.render('login');
+        }
 
-    }
-    catch (e) {
+        // Success
+        return res.status(200).redirect('/');
+
+    } catch (e) {
         console.error(e);
-        res.status(500).json({ error: "Internal server error" });
-
+        return res.status(500).json({
+            error: "Internal server error"
+        });
     }
-
-
 };
-module.exports={
+
+module.exports = {
     handleLogin,
-}
+};

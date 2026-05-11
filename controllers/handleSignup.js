@@ -16,10 +16,7 @@ const handlesignUp = async (req, res) => {
 
     } catch (e) {
 
-        // Duplicate email error (MongoDB unique index)
-        if (e.code === 11000) {
-            return res.status(400).render('validate');
-        }
+      
 
         console.error(e);
 
