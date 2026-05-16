@@ -1,4 +1,5 @@
 const URL = require('../models/url');
+const { get } = require('../routes/url-routes');
 
 const redirectURL = async (req, res) => {
     try {
@@ -7,18 +8,20 @@ const redirectURL = async (req, res) => {
         const entry = await URL.findOneAndUpdate(
             { shortId: shortid },
             {
-                $push: {
-                    visitHistory: {
-                        visitedAt: new Date()
-                    }
-                }
-            },
+      $push: {
+        visitHistory: {
+          timestamp: Date.now(),
+        },
+      },
+    },
+            
             { new: true }
         );
 
         if (!entry) {
             return res.status(404).render("404");
         }
+       
 
         return res.redirect(entry.redirectTo);
 
@@ -27,7 +30,16 @@ const redirectURL = async (req, res) => {
         return res.status(500).send("Internal Server Error");
     }
 };
+// Analytics function
+const getAnalytics = async (req, res) => {
+    const { shortid } = req.params;
+
+    const result = await URL.findOne({ shortId: shortid });
+
+    return res.render('index');
+};
 
 module.exports = {
     redirectURL,
+    getAnalytics,
 };

@@ -7,6 +7,11 @@ const redirectURL = require('./routes/staticRoutes');
 const login=require('./routes/login');
 const signUp=require('./routes/signup');
 const port=8080;
+const path=require('path');
+const cookieParser = require('cookie-parser');
+const {restricToLogin}=require('./middlewares/restrictToLogin')
+const URl=require('./models/url');
+
  
 connectMongoDb("mongodb://127.0.0.1:27017/urlshortner")
 .then(() => {
@@ -19,10 +24,21 @@ connectMongoDb("mongodb://127.0.0.1:27017/urlshortner")
 });
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use(cookieParser());
 app.set('view engine','ejs');
 app.set('views', './views');
-app.get('/',(req,res)=>{
-    res.render('index');
+app.use(express.static(path.join(__dirname, 'public')));
+app.get('/app', async (req, res) => {
+    const allurls=await URl.find({});
+    console.log(allurls.shortId)
+   
+  
+    
+   
+    res.render('index',{
+        
+        urls:allurls,
+    });
 });
 app.get('/login',(req,res)=>{
     res.render('login');
@@ -33,7 +49,7 @@ app.get('/signup',(req,res)=>{
 
 
 
-app.use("/app",approutes);
+app.use("/app",restricToLogin,approutes);
 app.use("/redct",redirectURL);
 app.use('/signup',signUp);
 app.use('/login',login);

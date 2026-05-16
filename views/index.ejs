@@ -1,42 +1,236 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" class="dark">
+
 <head>
-    <title>url Shortener</title>
-</head>
- 
-<body>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<h1>URL Shortener</h1>
+  <title>URL Shortener</title>
 
-<form method="POST" action="/app">
-  <h2>Actual URL</h2>
-  <input type="text" name="url" placeholder="Paste the URL" />
-  <button type="submit">Submit</button>
-</form>
-
-<h2>Short URL</h2>
-
-<% if (locals.id) { %>
-  <input 
-    id="shortUrl"
-    type="text"
-    value="http://localhost:8080/redct/<%= locals.id %>" 
-    readonly 
-  />
-
-  <button onclick="copyUrl()">Copy</button>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <script>
-    function copyUrl() {
-      const input = document.getElementById("shortUrl");
-      input.select();
-      input.setSelectionRange(0, 99999); // mobile support
-
-      navigator.clipboard.writeText(input.value)
-        .then(() =>console.log("copied"))
-        .catch(err => console.log("Copy failed", err));
+    tailwind.config = {
+      darkMode: 'class',
     }
   </script>
-<% } %>
+</head>
+
+<body class="bg-slate-100 dark:bg-[#0f172a] text-slate-900 dark:text-white transition duration-300">
+
+  <!-- Main Container -->
+  <div class="max-w-7xl mx-auto px-4 py-10">
+
+    <!-- Top Bar -->
+    <div class="flex items-center justify-between mb-10">
+
+      <!-- Logo -->
+      <div>
+        <h1 class="text-4xl font-extrabold">
+          🔗 URL Shortener
+        </h1>
+
+        <p class="text-slate-500 dark:text-slate-400 mt-1">
+          Shorten links and track analytics
+        </p>
+      </div>
+
+      <!-- Theme Toggle -->
+      <button id="themeToggle"
+        class="bg-slate-200 dark:bg-slate-800 px-5 py-3 rounded-xl shadow-lg hover:scale-105 transition">
+        🌙 Dark
+      </button>
+
+    </div>
+
+    <!-- Form -->
+    <div
+      class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-8 mb-10">
+
+      <form method="post" action="/app">
+
+        <label class="block text-sm font-semibold mb-3 text-slate-700 dark:text-slate-300">
+          Enter Long URL
+        </label>
+
+        <div class="flex flex-col md:flex-row gap-4">
+
+          <input type="text" name="url" placeholder="https://example.com/very-long-link"
+            class="flex-1 bg-slate-100 dark:bg-[#1e293b] border border-slate-300 dark:border-slate-600 px-5 py-4 rounded-xl text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+
+          <button type="submit"
+            class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold shadow-lg transition">
+            Shorten URL
+          </button>
+            <% if (locals.error) { %>
+    <p class="text-red-500 mt-3 font-medium">
+      <%= locals.error %>
+    </p>
+  <% } %>
+
+        </div>
+
+      </form>
+
+    </div>
+
+    <!-- Table -->
+    <% if (locals.urls && urls.length> 0) { %>
+
+      <div
+        class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl overflow-hidden">
+
+        <!-- Table Header -->
+        <div class="px-6 py-5 border-b border-slate-200 dark:border-slate-700">
+          <h2 class="text-2xl font-bold">
+            Your Shortened URLs
+          </h2>
+        </div>
+
+        <!-- Responsive Table -->
+        <div class="overflow-x-auto">
+
+          <table class="w-full">
+
+            <thead class="bg-slate-100 dark:bg-[#1e293b] text-slate-700 dark:text-slate-300 uppercase text-sm">
+              <tr>
+                <th class="px-6 py-4 text-left">#</th>
+                <th class="px-6 py-4 text-left">Original URL</th>
+                <th class="px-6 py-4 text-left">Short URL</th>
+                <th class="px-6 py-4 text-left">Copy</th>
+                <th class="px-6 py-4 text-center">Clicks</th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
+
+              <% urls.forEach((url, index)=> { %>
+
+                <tr class="hover:bg-slate-50 dark:hover:bg-[#1a2438] transition">
+
+                  <!-- Index -->
+                  <td class="px-6 py-5 font-semibold text-slate-700 dark:text-slate-300">
+                    <%= index + 1 %>
+                  </td>
+
+                  <!-- Original URL -->
+                  <td class="px-6 py-5 max-w-sm truncate text-slate-600 dark:text-slate-400">
+                    <%= url.url %>
+                  </td>
+
+                  <!-- Short URL -->
+                  <td class="px-6 py-5">
+                    <a href="/redct/<%= url.shortId %>" target="_blank"
+                      class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
+                      /redct/<%= url.shortId %>
+                    </a>
+                  </td>
+
+                  <!-- Copy -->
+                  <td class="px-6 py-5">
+
+                    <div class="flex items-center gap-3">
+
+                      <input id="shortUrl-<%= index %>" type="text"
+                        value="http://localhost:8080/redct/<%= url.shortId %>" readonly
+                        class="bg-slate-100 dark:bg-[#1e293b] border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg w-72" />
+
+                      <button onclick="copyUrl('shortUrl-<%= index %>')"
+                        class="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg transition">
+                        Copy
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                  <!-- Click Count -->
+                  <td class="px-6 py-5 text-center">
+
+                    <span
+                      class="bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-400 px-4 py-1 rounded-full text-sm font-semibold">
+                      <%= url.visitHistory.length %>
+                    </span>
+
+                  </td>
+
+                </tr>
+
+                <% }) %>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+      <% } else { %>
+
+        <!-- Empty State -->
+        <div
+          class="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl p-14 text-center">
+
+          <div class="text-7xl mb-5">
+            🚀
+          </div>
+
+          <h3 class="text-3xl font-bold mb-3">
+            No URLs Yet
+          </h3>
+
+          <p class="text-slate-500 dark:text-slate-400 text-lg">
+            Paste a long URL above to create your first short link.
+          </p>
+
+        </div>
+
+        <% } %>
+
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    function copyUrl(id) {
+      const input = document.getElementById(id);
+
+      navigator.clipboard.writeText(input.value)
+        .then(() => {
+          alert("✅ URL Copied!");
+        })
+        .catch((err) => {
+          console.log("Copy failed", err);
+        });
+    }
+
+    // Theme Toggle
+    const themeToggle = document.getElementById("themeToggle");
+    const html = document.documentElement;
+
+    // Load saved theme
+    if (localStorage.getItem("theme") === "light") {
+      html.classList.remove("dark");
+      themeToggle.innerHTML = "☀️ Light";
+    } else {
+      html.classList.add("dark");
+      themeToggle.innerHTML = "🌙 Dark";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      html.classList.toggle("dark");
+
+      if (html.classList.contains("dark")) {
+        localStorage.setItem("theme", "dark");
+        themeToggle.innerHTML = "🌙 Dark";
+      } else {
+        localStorage.setItem("theme", "light");
+        themeToggle.innerHTML = "☀️ Light";
+      }
+    });
+  </script>
+
 </body>
+
 </html>

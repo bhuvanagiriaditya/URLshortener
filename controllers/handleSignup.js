@@ -16,14 +16,21 @@ const handlesignUp = async (req, res) => {
 
     } catch (e) {
 
+        if (e.code == 11000) {
+            res.status(500).render("signup", {
+                error: "Internal server error"
+            });
+
+        }
+        else{
+            res.status(500).json({msg:"internal server error"});
+        }
       
 
-        console.error(e);
 
-        return res.status(500).json({
-            error: "Internal server error"
-        });
+
     }
 };
+
 
 module.exports = { handlesignUp };

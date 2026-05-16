@@ -6,22 +6,25 @@ const GenerateNewUrl = async (req, res) => {
     const { url } = req.body;
 
     if (!url) {
-      return res.status(400).json({ error: "URL is required" });
+      return res.status(400).render("index",{ error: "URL is required" });
     }
 
     const shortId = shortid.generate();
+  
+
+ 
 
     await Url.create({
       url,
       shortId,
       visitHistory: [],
       redirectTo: url,
+   
     });
+    
+   
 
-    res.status(201).render('index', {
-      id: shortId,
-      url: url
-    });
+    res.status(201).redirect("/app");
 
   } catch (e) {
     console.error(e);
@@ -29,7 +32,6 @@ const GenerateNewUrl = async (req, res) => {
   }
 };
 
-module.exports = { 
+module.exports = {
   GenerateNewUrl,
-
- };
+};

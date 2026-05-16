@@ -4,8 +4,9 @@ const urlSchema = new mongoose.Schema({
     url: {
         type: String,
         required: true,
-      
+
     },
+   
     shortId: {
         type: String,
         required: true,
@@ -22,6 +23,7 @@ const urlSchema = new mongoose.Schema({
             },
         },
     ],
+
 }, { timestamps: true });
 
 const Url = mongoose.model('Url', urlSchema);

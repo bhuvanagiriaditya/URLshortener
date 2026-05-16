@@ -9,12 +9,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie": "^1.1.1",
+    "cookie-parser": "^1.4.7",
     "ejs": "^5.0.2",
     "express": "^5.2.1",
     "mongoose": "^9.6.1",
     "nodemon": "^3.1.14",
+    "parser": "^0.1.4",
     "short-id": "^0.1.0-1",
     "shortid": "^2.2.17",
     "uuid": "^14.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "tailwindcss": "^4.3.0"
   }
 }
