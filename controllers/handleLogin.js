@@ -21,7 +21,7 @@ const handleLogin = async (req, res) => {
 
 
         // Success
-        return res.status(200).redirect('/app');
+        return res.status(200).redirect('/');
 
     } catch (e) {
         console.error(e);

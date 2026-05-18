@@ -19,12 +19,15 @@ const GenerateNewUrl = async (req, res) => {
       shortId,
       visitHistory: [],
       redirectTo: url,
+      createdBy:req.user._id,
+     
+      
    
     });
     
    
 
-    res.status(201).redirect("/app");
+    res.status(201).redirect("/");
 
   } catch (e) {
     console.error(e);

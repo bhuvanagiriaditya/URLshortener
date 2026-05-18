@@ -21,6 +21,8 @@ const redirectURL = async (req, res) => {
         if (!entry) {
             return res.status(404).render("404");
         }
+    
+       
        
 
         return res.redirect(entry.redirectTo);

@@ -6,7 +6,7 @@ const urlSchema = new mongoose.Schema({
         required: true,
 
     },
-   
+
     shortId: {
         type: String,
         required: true,
@@ -14,6 +14,10 @@ const urlSchema = new mongoose.Schema({
     redirectTo: {
         type: String,
         required: true,
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        
     },
     visitHistory: [
         {
