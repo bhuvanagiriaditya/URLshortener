@@ -20,6 +20,9 @@ const urlSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:"user",
     },
+    role:{
+        type:String,
+    },
     visitHistory: [
         {
             visitedAt: {

@@ -3,7 +3,11 @@ const shortid = require('shortid');
 
 const GenerateNewUrl = async (req, res) => {
   try {
-    const { url } = req.body;
+    const {url,trial} = req.body;
+   
+  
+    
+   
 
     if (!url) {
       return res.status(400).render("index",{ error: "URL is required" });
@@ -21,6 +25,7 @@ const GenerateNewUrl = async (req, res) => {
       visitHistory: [],
       redirectTo: url,
       createdBy:req.user.id,
+      role:trial,
      
       
    
@@ -35,6 +40,13 @@ const GenerateNewUrl = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+const FreeUser = async (req, res) => {
+
+  const {free}=req.body;
+  
+ 
+};
+
 
 module.exports = {
   GenerateNewUrl,

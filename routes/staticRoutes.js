@@ -7,8 +7,12 @@ const URL = require('../models/url');
 const displayURLS = async function (req, res, next) {
     try {
         if (!req.user) return res.redirect("/login");
+        const trial = req.session.trial;
 
         const allurls = await URL.find({createdBy:req.user.id });
+        if(allurls.length>10 && !trial){
+           return  res.render('authorize');
+        }
        
         return res.render('index', {
             urls: allurls ,

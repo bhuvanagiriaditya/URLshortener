@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upgrade to Pro</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="output.css">
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center px-4">
+
+  <div class="max-w-6xl w-full grid md:grid-cols-2 gap-8">
+
+    <!-- Free Trial Card -->
+    <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-200">
+      <div class="mb-6">
+        <span class="bg-blue-100 text-blue-700 text-sm font-semibold px-3 py-1 rounded-full">
+          Free Trial
+        </span>
+      </div>
+
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">
+        Start for Free
+      </h2>
+
+      <p class="text-gray-500 mb-6">
+        Try all premium features for 7 days. No credit card required.
+      </p>
+
+      <div class="mb-8">
+        <span class="text-5xl font-extrabold text-gray-900">$0</span>
+        <span class="text-gray-500 text-lg">/7 days</span>
+      </div>
+
+      <ul class="space-y-4 mb-8">
+        <li class="flex items-center gap-3">
+          <span class="text-green-500">✓</span>
+          Unlimited AI generations
+        </li>
+
+        <li class="flex items-center gap-3">
+          <span class="text-green-500">✓</span>
+          Priority support
+        </li>
+
+        <li class="flex items-center gap-3">
+          <span class="text-green-500">✓</span>
+          Access to premium templates
+        </li>
+
+        <li class="flex items-center gap-3">
+          <span class="text-green-500">✓</span>
+          Cancel anytime
+        </li>
+      </ul>
+
+      <form action="/upgrade"  method="post" >
+        <button
+          type="submit"
+          name="trial"
+          value="started"
+          class="w-full bg-gray-900 hover:bg-black text-white py-3 rounded-xl font-semibold transition"
+        >
+          Start Free Trial
+        </button>
+      </form>
+    </div>
+     <!-- Free Trial Card -->
+    <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-200">
+      <div class="mb-6">
+        <span class="bg-blue-100 text-blue-700 text-sm font-semibold px-3 py-1 rounded-full">
+          paid
+        </span>
+      </div>
+
+      <h2 class="text-3xl font-bold text-gray-900 mb-2">
+        Upgrade to Pro
+      </h2>
+
+      <p class="text-gray-500 mb-6">
+       Unlock the full experience with advanced features and unlimited access.
+      </p>
+
+      <div class="mb-8">
+        <span class="text-5xl font-extrabold text-gray-900">$0</span>
+        <span class="text-gray-500 text-lg">$19/month</span>
+      </div>
+
+      <ul class="space-y-4 mb-8">
+        <li class="flex items-center gap-3">
+          <span class="text-green-500">✓</span>
+          Unlimited projects
+        </li>
+
+        <li class="flex items-center gap-3">
+          <span class="text-green-500">✓</span>
+          Faster response speeds
+        </li>
+
+        <li class="flex items-center gap-3">
+          <span class="text-green-500">✓</span>
+           Advanced privacy controls
+        </li>
+
+        <li class="flex items-center gap-3">
+          <span class="text-green-500">✓</span>
+        Exclusive premium tools
+        </li>
+      </ul>
+
+      <form action="/start-trial" method="POST">
+        <button
+          type="submit"
+          class="w-full bg-gray-900 hover:bg-black text-white py-3 rounded-xl font-semibold transition"
+        >
+          Start Free Trial
+        </button>
+      </form>
+    </div>
+
+   
+    </div>
+
+  </div>
+
+</body>
+</html>
