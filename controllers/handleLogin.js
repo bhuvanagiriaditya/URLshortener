@@ -15,9 +15,9 @@ const handleLogin = async (req, res) => {
         if (!user) {
             return res.render('login');
         }
-        const sessionid=uuidv4();
-        setUsers(sessionid,user);
-        res.cookie("uid",sessionid);
+      
+        const token=setUsers(user);
+        res.cookie("uid",token);
 
 
         // Success

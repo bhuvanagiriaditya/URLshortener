@@ -10,6 +10,7 @@ const GenerateNewUrl = async (req, res) => {
     }
 
     const shortId = shortid.generate();
+    console.log(req.user.id);
   
 
  
@@ -19,7 +20,7 @@ const GenerateNewUrl = async (req, res) => {
       shortId,
       visitHistory: [],
       redirectTo: url,
-      createdBy:req.user._id,
+      createdBy:req.user.id,
      
       
    

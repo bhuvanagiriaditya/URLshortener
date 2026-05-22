@@ -1,15 +1,21 @@
-const map = new Map();
+const jwt=require('jsonwebtoken');
+const secret="kadnssdmlkDklNDka:LND:LNDASK:NDAK:LU";
 
 // set user
-const setUsers = (id, user) => {
-    console.log(map.set(id,user));
-   return  map.set(id, user);
-};
+const setUsers = ( user) => {
+    const payload={
+        id:user._id,
+        email:user.email,
+
+    }
+    return jwt.sign(payload,secret);
+
+}
 
 // get user
-const getUsers = (id) => {
-    console.log(map.get(id));
-    return map.get(id);
+const getUsers = (token) => {
+    if(!token) return null;
+  return jwt.verify(token,secret);
 };
 module.exports={
     setUsers,

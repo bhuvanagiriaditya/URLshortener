@@ -8,12 +8,13 @@ const displayURLS = async function (req, res, next) {
     try {
         if (!req.user) return res.redirect("/login");
 
-        const allurls = await URL.find({createdBy:req.user._id });
-
+        const allurls = await URL.find({createdBy:req.user.id });
+       
         return res.render('index', {
             urls: allurls ,
         });
     } catch (err) {
+        console.log(err)
         next(err);
     }
 };

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const urlSchema = new mongoose.Schema({
     url: {
         type: String,
@@ -17,7 +18,7 @@ const urlSchema = new mongoose.Schema({
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,
-        
+        ref:"user",
     },
     visitHistory: [
         {

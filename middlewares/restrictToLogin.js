@@ -1,4 +1,5 @@
 const { getUsers } = require("../service");
+const jwt=require('jsonwebtoken');
 
 async function restricToLogin(req, res, next) {
     const userid = req.cookies?.uid;
@@ -36,6 +37,7 @@ async function checkAuth(req, res, next) {
     next();
 
 }
+
 module.exports = {
     restricToLogin,
     checkAuth,
